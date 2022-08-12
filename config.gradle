@@ -1,0 +1,50 @@
+// get keys from client_keys.properties
+def getClientKeys() {
+    // get keys file path
+    String clientKeysPath = project.getProjectDir().path + "/client_keys/client_keys.properties"
+    // new File from path
+    File clientFile = new File(clientKeysPath)
+    // change file to stream
+    FileInputStream clientStream = new FileInputStream(clientFile)
+    Properties properties = new Properties()
+    properties.load(clientStream)
+    return properties
+}
+
+// In order to know which branch and which encoding the current app package is
+// in the staging environment and the qa environment.
+def getCurrentBranchName() {
+    return """git --git-dir=${rootDir}/.git
+                               --work-tree=${rootDir}
+                               rev-parse --abbrev-ref HEAD""".execute().text.trim()
+}
+
+def getCurrentBranchCode() {
+    return """git --git-dir=${rootDir}/.git
+                               --work-tree=${rootDir}
+                               rev-parse --short HEAD""".execute().text.trim()
+}
+
+ext {
+    clientKeys = getClientKeys()
+    currentBranchName = getCurrentBranchName()
+    currentBranchCode = getCurrentBranchCode()
+
+    versionCode = 1
+    versionName = "1.1.0"
+
+    prodConfig = { flavor ->
+        flavor.buildConfigField "String", "GOOGLE_MAP_API_KEY", "\"${clientKeys.googleMapKeyPro}\""
+        flavor.buildConfigField "String", "GOOGLE_ELEVATION_KEY", "\"${clientKeys.googleElevationKeyPro}\""
+    }
+
+    stgConfig = { flavor ->
+        flavor.buildConfigField "String", "GOOGLE_MAP_API_KEY", "\"${clientKeys.googleMapKeyStg}\""
+        flavor.buildConfigField "String", "GOOGLE_ELEVATION_KEY", "\"${clientKeys.googleElevationKeyStg}\""
+    }
+
+    qaConfig = { flavor ->
+        flavor.buildConfigField "String", "GOOGLE_MAP_API_KEY", "\"${clientKeys.googleMapKeyQa}\""
+        flavor.buildConfigField "String", "GOOGLE_ELEVATION_KEY", "\"${clientKeys.googleElevationKeyQa}\""
+    }
+}
