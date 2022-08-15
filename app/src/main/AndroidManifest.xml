@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xiaoyun.buildtypedemo">
+
+    <dist:module dist:instant="true" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BuildTypeDemo"
         tools:targetApi="31">
+        <profileable
+            android:shell="true"
+            tools:targetApi="q" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

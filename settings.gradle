@@ -14,3 +14,28 @@ dependencyResolutionManagement {
 }
 rootProject.name = "BuildTypeDemo"
 include ':app'
+
+include ':common'
+include ':common:di'
+include ':common:resources'
+
+include ':core'
+include ':core:apis'
+include ':core:datasources'
+include ':core:entities'
+include ':core:repositories'
+include ':core:systems'
+include ':core:usecases'
+
+include ':features'
+include ':features:home'
+include ':features:functionone'
+include ':features:functiontwo'
+include ':features:mypage'
+
+include ":provide"
+include ":provide:systems"
+include ':provide:apis'
+include ':provide:datasources'
+include ':provide:repositories'
+include ':provide:mocks'

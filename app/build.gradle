@@ -85,6 +85,9 @@ android {
 }
 
 dependencies {
+    def hiltNavigation = "1.0.0"
+    def hilt = "2.40.5"
+    def retrofit = "2.9.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -93,4 +96,13 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // hilt
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltNavigation"
+    implementation "com.google.dagger:hilt-android:$hilt"
+    implementation "com.google.dagger:hilt-compiler:$hilt"
+    implementation "com.google.dagger:hilt-android-compiler:$hilt"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
 }
